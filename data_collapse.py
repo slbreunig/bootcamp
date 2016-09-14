@@ -90,11 +90,11 @@ bohr_fold_change = fold_change_bohr(bohr_input)
 # Plot theoretical Bohr values
 plt.plot(bohr_input, bohr_fold_change, color='gray')
 # Plot experimental Bohr values
-plt.plot(bohr_par_wt, fold_change_bohr(bohr_par_wt), 'b', linestyle='none',
+plt.plot(bohr_par_wt, wt_fc, 'b', linestyle='none',
         marker='.', markersize=10)
-plt.plot(bohr_par_q18a, fold_change_bohr(bohr_par_q18a), 'r', linestyle='none',
+plt.plot(bohr_par_q18a, q18a_fc, 'r', linestyle='none',
         marker='.', markersize=10)
-plt.plot(bohr_par_q18m, fold_change_bohr(bohr_par_q18m), 'g', linestyle='none',
+plt.plot(bohr_par_q18m, q18m_fc, 'g', linestyle='none',
         marker='.', markersize=10)
 
 #Bohr plot formatting
