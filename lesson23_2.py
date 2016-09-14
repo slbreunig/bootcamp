@@ -23,11 +23,15 @@ xa_low = np.loadtxt('data/xa_low_food.csv', comments='#')
 x_high, y_high = ecdf(xa_high)
 x_low, y_low = ecdf(xa_low)
 
+# Plot data 
 plt.plot(x_high, y_high, marker='.', linestyle='none', markersize=20,
         alpha=0.5)
 plt.plot(x_low, y_low, marker='.', linestyle='none', markersize=20,
         alpha=0.5)
+# Add axes labels
 plt.xlabel('Cross-sectional area (um)')
 plt.ylabel('eCDF')
+# Add a legend
 plt.legend(('High Food', 'Low Food'), loc='lower right')
+
 plt.show()
