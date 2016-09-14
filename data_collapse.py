@@ -21,16 +21,16 @@ q18m_fc =  q18m_data[:,1]
 q18a_iptg = q18a_data[:,0]
 q18a_fc = q18a_data[:,1]
 
-# Plot data (IPTG vs Fold Change) - semilog x
-plt.semilogx(wt_iptg, wt_fc, linestyle='none', marker='.', markersize=10,
-        alpha=0.5)
-plt.semilogx(q18m_iptg, q18m_fc, linestyle='none', marker='.', markersize=10,
-        alpha=0.5)
-plt.semilogx(q18a_iptg, q18a_fc, linestyle='none', marker='.', markersize=10,
-        alpha=0.5)
-plt.xlabel('IPTG (mM)')
-plt.ylabel('Fold Change')
-plt.title('IPTG vs Fold Change')
+# # Plot data (IPTG vs Fold Change) - semilog x
+# plt.semilogx(wt_iptg, wt_fc, linestyle='none', marker='.', markersize=10,
+#         alpha=0.5)
+# plt.semilogx(q18m_iptg, q18m_fc, linestyle='none', marker='.', markersize=10,
+#         alpha=0.5)
+# plt.semilogx(q18a_iptg, q18a_fc, linestyle='none', marker='.', markersize=10,
+#         alpha=0.5)
+# plt.xlabel('IPTG (mM)')
+# plt.ylabel('Fold Change')
+# plt.title('IPTG vs Fold Change')
 
 # define R/K values (given)
 wt_rk = 141.5
@@ -53,13 +53,13 @@ wt_calc = fold_change(x, wt_rk)
 q18a_calc = fold_change(x, q18a_rk)
 q18m_calc = fold_change(x, q18m_rk)
 
-# Plot theoretical curves
-plt.plot(x, wt_calc, 'b-', linewidth=0.5)
-plt.plot(x, q18a_calc, 'r-', linewidth=0.5)
-plt.plot(x, q18m_calc, 'g-', linewidth=0.5)
-
-# Add a legend
-plt.legend(('wt', 'q18a', 'q18m'), loc = 'upper left')
+# # Plot theoretical curves
+# plt.plot(x, wt_calc, 'b-', linewidth=0.5)
+# plt.plot(x, q18a_calc, 'r-', linewidth=0.5)
+# plt.plot(x, q18m_calc, 'g-', linewidth=0.5)
+#
+# # Add a legend
+# plt.legend(('wt', 'q18a', 'q18m'), loc = 'upper left')
 
 #plt.show()
 
@@ -79,3 +79,28 @@ def fold_change_bohr(bohr_parameter):
 
 # Generate Bohr values range(-6, 6)
 bohr_input = np.linspace(-6, 6, 500)
+# Generate Bohr values using IPTG conc's
+bohr_par_wt = bohr_parameter(wt_iptg, wt_rk)
+bohr_par_q18m = bohr_parameter(q18m_iptg, q18m_rk)
+bohr_par_q18a = bohr_parameter(q18a_iptg, q18a_rk)
+
+# Compute Bohr theoretical fold change
+bohr_fold_change = fold_change_bohr(bohr_input)
+
+# Plot theoretical Bohr values
+plt.plot(bohr_input, bohr_fold_change, color='gray')
+# Plot experimental Bohr values
+plt.plot(bohr_par_wt, fold_change_bohr(bohr_par_wt), 'b', linestyle='none',
+        marker='.', markersize=10)
+plt.plot(bohr_par_q18a, fold_change_bohr(bohr_par_q18a), 'r', linestyle='none',
+        marker='.', markersize=10)
+plt.plot(bohr_par_q18m, fold_change_bohr(bohr_par_q18m), 'g', linestyle='none',
+        marker='.', markersize=10)
+
+#Bohr plot formatting
+plt.xlabel('Bohr Parameter')
+plt.ylabel('Fold Change')
+plt.title('Data Collapse')
+plt.legend(('Theoretical', 'wt', 'q18a', 'q18m'), loc="upper left")
+
+plt.show()
