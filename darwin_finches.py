@@ -22,6 +22,9 @@ df_1987 = df_1987.rename(columns = {'Beak length, mm': 'beak length (mm)',
 df_1991 = df_1991.rename(columns = {'blength': 'beak length (mm)',
             'bdepth' : 'beak depth (mm)'})
 
+#could have just done df_year['year'] = 'year' for each year,
+#instead of these two following steps.
+
 #reformat years
 df_1973 = df_1973.replace('73', '1973')
 
@@ -47,13 +50,18 @@ df_1987 = df_1987.rename(columns={0: 'year'})
 df_1991 = df_1991.rename(columns={0: 'year'})
 
 #remove duplicates
+#instead df = df.drop_duplicates(subset={'band', 'year'}) (after merge)
 df_1973.drop_duplicates(['band'])
 df_1975.drop_duplicates(['band'])
 df_1987.drop_duplicates(['band'])
 df_1991.drop_duplicates(['band'])
 
 #merge into one data frame
+#didn't need to split into two steps
+#ignore index for most cases
 df_1 = pd.concat((df_1973, df_1975))
 df_2 = pd.concat((df_1987, df_1991))
 df = pd.concat((df_1, df_2), ignore_index=True)
 df = df[['year', 'band', 'species', 'beak depth (mm)', 'beak length (mm)']]
+
+#not finished - no csv conversion, or plotting
