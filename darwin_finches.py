@@ -46,9 +46,14 @@ df_1975 = df_1975.rename(columns={0: 'year'})
 df_1987 = df_1987.rename(columns={0: 'year'})
 df_1991 = df_1991.rename(columns={0: 'year'})
 
+#remove duplicates
+df_1973.drop_duplicates(['band'])
+df_1975.drop_duplicates(['band'])
+df_1987.drop_duplicates(['band'])
+df_1991.drop_duplicates(['band'])
+
 #merge into one data frame
 df_1 = pd.concat((df_1973, df_1975))
 df_2 = pd.concat((df_1987, df_1991))
-
-df = pd.concat((df_1, df_2))
+df = pd.concat((df_1, df_2), ignore_index=True)
 df = df[['year', 'band', 'species', 'beak depth (mm)', 'beak length (mm)']]
