@@ -32,9 +32,9 @@ df = pd.read_csv('data/frog_tongue_adhesion.csv', comment='#')
 #     impact_forces[i] = frog_if.mean()
 #
 # print (impact_forces)
-
-
-
+#
+#
+#
 #groupby() tutorial
 #slice out ID's and impact forces
 df_impf = df.loc[:, ['ID', 'impact force (mN)']]
@@ -45,5 +45,7 @@ grouped = df_impf.groupby('ID')
 #apply np.mean function to grouped object
 df_mean_impf = grouped.apply(np.mean)
 
-#look at new DataFrame
-df_mean_impf
+#compute coefficient of variation
+def coeff_of_var(data):
+    std, mean = data.apply([np.mean, np.median])
+    mean = data.apply(np.mean)
